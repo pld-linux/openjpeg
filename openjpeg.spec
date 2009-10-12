@@ -10,6 +10,7 @@ Patch0:		%{name}-install.patch
 License:	BSD
 Group:		Libraries
 URL:		http://www.openjpeg.org/
+BuildRequires:	sed >= 4.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -31,16 +32,20 @@ developing programs using the OpenJPEG library.
 %prep
 %setup -q -n %{_name}_v%{_ver}
 %patch0 -p1
+sed 's/$(CC) -s/$(CC) $(CFLAGS) $(LDFLAGS)/' -i Makefile
 
 %build
-%{__make} CFLAGS="%{rpmcflags} -fPIC"
+%{__make} \
+	CFLAGS="%{rpmcflags} -fPIC" \
+	LDFLAGS="%{rpmldflags}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_libdir}
-%{__make} install DESTDIR=$RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_includedir}
-install lib%{name}/%{name}.h $RPM_BUILD_ROOT%{_includedir}
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT \
+	INSTALL_LIBDIR=%{_libdir} \
+	INSTALL_INCLUDE=%{_includedir}
+
 cd $RPM_BUILD_ROOT%{_libdir}
 ln -sf libopenjpeg.so.? libopenjpeg.so
 
