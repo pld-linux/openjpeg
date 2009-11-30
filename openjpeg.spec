@@ -33,9 +33,11 @@ developing programs using the OpenJPEG library.
 %setup -q -n %{_name}_v%{_ver}
 %patch0 -p1
 sed 's/$(CC) -s/$(CC) $(CFLAGS) $(LDFLAGS)/' -i Makefile
+sed 's/-lstdc++//' -i Makefile
 
 %build
 %{__make} \
+	CC="%{__cc}" \
 	CFLAGS="%{rpmcflags} -fPIC" \
 	LDFLAGS="%{rpmldflags}"
 
