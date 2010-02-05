@@ -3,7 +3,7 @@
 Summary:	An open-source JPEG 2000 codec
 Name:		openjpeg
 Version:	1.3
-Release:	0.1
+Release:	1
 Source0:	http://www.openjpeg.org/%{name}_v%{_ver}.tar.gz
 # Source0-md5:	f9a3ccfa91ac34b589e9bf7577ce8ff9
 Patch0:		%{name}-install.patch
