@@ -16,7 +16,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %description
 The OpenJPEG library is an open-source JPEG 2000 codec written in C
 language. It has been developed in order to promote the use of JPEG
-2000, the new still-image comp ession standard from the Joint
+2000, the new still-image compression standard from the Joint
 Photographic Experts Group (JPEG).
 
 %package devel
