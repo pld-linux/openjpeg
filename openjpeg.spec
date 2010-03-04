@@ -3,8 +3,8 @@
 Summary:	An open-source JPEG 2000 codec
 Name:		openjpeg
 Version:	1.3
-Release:	1
-Source0:	http://www.openjpeg.org/%{name}_v%{_ver}.tar.gz
+Release:	2
+Source0:	http://openjpeg.googlecode.com/files/%{name}_v%{_ver}.tar.gz
 # Source0-md5:	f9a3ccfa91ac34b589e9bf7577ce8ff9
 Patch0:		%{name}-install.patch
 License:	BSD
@@ -32,13 +32,14 @@ developing programs using the OpenJPEG library.
 %prep
 %setup -q -n %{_name}_v%{_ver}
 %patch0 -p1
+
 sed 's/$(CC) -s/$(CC) $(CFLAGS) $(LDFLAGS)/' -i Makefile
-sed 's/-lstdc++//' -i Makefile
+sed 's/-lstdc++/-lm/' -i Makefile
 
 %build
 %{__make} \
 	CC="%{__cc}" \
-	CFLAGS="%{rpmcflags} -fPIC" \
+	CFLAGS="%{rpmcflags} %{rpmcppflags} -fPIC" \
 	LDFLAGS="%{rpmldflags}"
 
 %install
