@@ -1,0 +1,5 @@
+- updated to 1.4 [note: soname changed]
+- package openjpeg_JPWL library too
+- removed outdated install patch (autotools and cmake support introduced upstream, both messy)
+- added libpng patch to fix build with libpng 1.5.x
+- added destdir,opt,link patch to partially fix ac/am usage ugliness
