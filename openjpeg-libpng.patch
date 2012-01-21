@@ -1,0 +1,11 @@
+--- openjpeg_v1_4_sources_r697/codec/convert.c.orig	2011-01-02 19:14:52.000000000 +0100
++++ openjpeg_v1_4_sources_r697/codec/convert.c	2012-01-21 10:57:18.020404446 +0100
+@@ -2432,7 +2432,7 @@
+  * currently be PNG_COMPRESSION_TYPE_BASE and PNG_FILTER_TYPE_BASE. 
+  * REQUIRED
+ */
+-	png_set_compression_level(png, Z_BEST_COMPRESSION);
++	png_set_compression_level(png, 9 /*Z_BEST_COMPRESSION*/);
+ 
+ 	if(prec == 16) mask = 0xffff;
+ 	else

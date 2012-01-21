@@ -1,0 +1,111 @@
+--- openjpeg_v1_4_sources_r697/libopenjpeg/Makefile.am.orig	2011-01-02 19:14:45.000000000 +0100
++++ openjpeg_v1_4_sources_r697/libopenjpeg/Makefile.am	2012-01-21 11:28:33.590467246 +0100
+@@ -5,7 +5,7 @@
+ 
+ lib_LTLIBRARIES = libopenjpeg.la
+ 
+-INCLUDES = -I.. -I.
++AM_CPPFLAGS = -I.. -I.
+ 
+ libopenjpeg_la_LDFLAGS = -no-undefined \
+   -version-info $(CURRENT):$(BUILD):$(MINOR)
+@@ -28,17 +28,15 @@
+ dos2unix:
+ 	@$(DOS2UNIX) $(SRCS) $(INCLS)
+ 
+-COMPILERFLAGS = -Wall -O3 -ffast-math -std=c99
++AM_CFLAGS = -Wall -ffast-math -std=c99
+ 
+ if with_sharedlibs
+-COMPILERFLAGS += -DOPJ_EXPORTS
++AM_CFLAGS += -DOPJ_EXPORTS
+ else
+-COMPILERFLAGS += -DOPJ_STATIC
++AM_CFLAGS += -DOPJ_STATIC
+ libopenjpeg_la_LDFLAGS += -static
+ endif
+ 
+-CFLAGS = $(COMPILERFLAGS) $(INCLUDES)
+-
+ headerdir = openjpeg-$(MAJOR).$(MINOR)
+ 
+ all-local:
+--- openjpeg_v1_4_sources_r697/jp3d/libjp3dvm/Makefile.am.orig	2011-01-02 19:14:46.000000000 +0100
++++ openjpeg_v1_4_sources_r697/jp3d/libjp3dvm/Makefile.am	2012-01-21 11:30:00.757136830 +0100
+@@ -27,18 +27,16 @@
+ dos2unix:
+ 	@$(DOS2UNIX) $(SRCS) $(INCLS)
+ 
+-INCLUDES = -I../.. -I.
+-COMPILERFLAGS = -Wall -O3 -ffast-math -std=c99
++AM_CPPFLAGS = -I../.. -I.
++AM_CFLAGS = -Wall -ffast-math -std=c99
+ 
+ if with_sharedlibs
+-COMPILERFLAGS += -DOPJ_EXPORTS
++AM_CFLAGS += -DOPJ_EXPORTS
+ else
+-COMPILERFLAGS += -DOPJ_STATIC
++AM_CFLAGS += -DOPJ_STATIC
+ libopenjp3dvm_la_LDFLAGS += -static
+ endif
+ 
+-CFLAGS = $(COMPILERFLAGS) $(INCLUDES) 
+-#CFLAGS += -DJP3D_VERSION="\"$(MAJOR).$(MINOR).$(BUILD)\""
+ 
+ headerdir = openjpeg3d-$(MAJOR).$(MINOR)
+ 
+--- openjpeg_v1_4_sources_r697/jpwl/Makefile.am.orig	2011-01-02 19:14:48.000000000 +0100
++++ openjpeg_v1_4_sources_r697/jpwl/Makefile.am	2012-01-21 11:45:58.817168910 +0100
+@@ -37,28 +37,28 @@
+ dos2unix:
+ 	@$(DOS2UNIX) $(SRCS) $(INCLS)
+ 
+-COMPILERFLAGS = -Wall -ffast-math -std=c99
++AM_CFLAGS = -Wall -ffast-math -std=c99
+ 
+ USERLIBS =
+-INCLUDES = -I.. -I. -I../libopenjpeg -I../common
++AM_CPPFLAGS = -I.. -I. -I../libopenjpeg -I../common
+ 
+ if with_libtiff
+-INCLUDES += @tiffincludes@
++AM_CPPFLAGS += @tiffincludes@
+ USERLIBS += @tifflibs@
+ endif
+ 
+ if with_libpng
+-INCLUDES += @pngincludes@
++AM_CPPFLAGS += @pngincludes@
+ USERLIBS += @pnglibs@
+ endif
+ 
+ if with_liblcms2
+-INCLUDES += @lcms2includes@
++AM_CPPFLAGS += @lcms2includes@
+ USERLIBS += @lcms2libs@
+ endif
+ 
+ if with_liblcms1
+-INCLUDES += @lcms1includes@
++AM_CPPFLAGS += @lcms1includes@
+ USERLIBS += @lcms1libs@
+ endif
+ 
+@@ -70,13 +70,13 @@
+ JPWL_image_to_j2k_CFLAGS = $(COMPILERFLAGS) $(INCLUDES) -DUSE_JPWL
+ 
+ if with_sharedlibs
+-COMPILERFLAGS += -DOPJ_EXPORTS
++AM_CPPFLAGS += -DOPJ_EXPORTS
+ else
+-COMPILERFLAGS += -DOPJ_STATIC
++AM_CPPFLAGS += -DOPJ_STATIC
+ libopenjpeg_JPWL_la_LDFLAGS += -static
+ endif
+ 
+-CFLAGS = $(COMPILERFLAGS) $(INCLUDES) -DUSE_JPWL
++AM_CPPFLAGS += -DUSE_JPWL
+ LDADD = ./libopenjpeg_JPWL.la $(USERLIBS)
+ 
+ JPWL_j2k_to_image_SOURCES = ../common/getopt.c ../codec/index.c \
