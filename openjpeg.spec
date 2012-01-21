@@ -16,10 +16,8 @@ Patch3:		%{name}-link.patch
 URL:		http://www.openjpeg.org/
 BuildRequires:	autoconf >= 2.65
 BuildRequires:	automake
-BuildRequires:	sed >= 4.0
 BuildRequires:	lcms2-devel >= 2
 BuildRequires:	libpng-devel
-BuildRequires:	libstdc++-devel
 BuildRequires:	libtiff-devel
 BuildRequires:	libtool >= 2:1.5
 BuildRequires:	pkgconfig
