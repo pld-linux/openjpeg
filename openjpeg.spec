@@ -1,26 +1,22 @@
-%define fver    %(echo %{version} | tr . _)
 Summary:	An open-source JPEG 2000 codec
 Summary(pl.UTF-8):	Biblioteka kodująca i dekodująca format JPEG 2000
 Name:		openjpeg
-Version:	1.4
+Version:	1.5.0
 Release:	1
 License:	BSD
 Group:		Libraries
 #Source0Download: http://code.google.com/p/openjpeg/downloads/list
-Source0:	http://openjpeg.googlecode.com/files/%{name}_v%{fver}_sources_r697.tgz
-# Source0-md5:	7870bb84e810dec63fcf3b712ebb93db
-Patch0:		%{name}-libpng.patch
-Patch1:		%{name}-destdir.patch
-Patch2:		%{name}-opt.patch
-Patch3:		%{name}-link.patch
+Source0:	http://openjpeg.googlecode.com/files/%{name}-%{version}.tar.gz
+# Source0-md5:	e5d66193ddfa59a87da1eb08ea86293b
+Patch0:		%{name}-opt.patch
 URL:		http://www.openjpeg.org/
 BuildRequires:	autoconf >= 2.65
-BuildRequires:	automake
+BuildRequires:	automake >= 1:1.11
 BuildRequires:	lcms2-devel >= 2
 BuildRequires:	libpng-devel
 BuildRequires:	libtiff-devel
-BuildRequires:	libtool >= 2:1.5
-BuildRequires:	pkgconfig
+BuildRequires:	libtool >= 2:2.0
+BuildRequires:	pkgconfig >= 1:0.22
 BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -75,23 +71,22 @@ OpenJPEG codec programs.
 Programy kodujące/dekodujące format OpenJPEG.
 
 %prep
-%setup -q -n %{name}_v%{fver}_sources_r697
+%setup -q
 %patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
 
 %build
 %{__libtoolize}
-%{__aclocal}
+%{__aclocal} -I m4
 %{__autoconf}
 %{__autoheader}
 %{__automake}
 %configure \
-	--enable-jpwl
-# no --enable-jp3d here (see openjp3d.spec for it)
+	--disable-silent-rules \
+	--enable-jpwl \
+	--enable-mj2
+# no --enable-jpip here (see openjpip.spec for it)
 
-%{__make} -j1
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -101,6 +96,8 @@ rm -rf $RPM_BUILD_ROOT
 
 # obsoleted by pkg-config
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/libopenjpeg*.la
+# packaged as doc
+%{__rm} -r $RPM_BUILD_ROOT%{_docdir}/openjpeg-1.5
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -120,11 +117,12 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libopenjpeg.so
 %attr(755,root,root) %{_libdir}/libopenjpeg_JPWL.so
-%{_includedir}/openjpeg-1.4
+%{_includedir}/openjpeg-1.5
 %{_includedir}/openjpeg.h
 %{_pkgconfigdir}/libopenjpeg1.pc
 %{_pkgconfigdir}/libopenjpeg.pc
-%{_mandir}/man3/JPWL_libopenjpeg.3*
+%{_pkgconfigdir}/libopenjpeg-jpwl.pc
+%{_mandir}/man3/jpwl_libopenjpeg.3*
 %{_mandir}/man3/libopenjpeg.3*
 
 %files static
@@ -143,8 +141,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/j2k_to_image
 %attr(755,root,root) %{_bindir}/mj2_to_frames
 %attr(755,root,root) %{_bindir}/wrap_j2k_in_mj2
-%{_mandir}/man1/JPWL_image_to_j2k.1*
-%{_mandir}/man1/JPWL_j2k_to_image.1*
+%{_mandir}/man1/jpwl_image_to_j2k.1*
+%{_mandir}/man1/jpwl_j2k_to_image.1*
 %{_mandir}/man1/image_to_j2k.1*
 %{_mandir}/man1/j2k_dump.1*
 %{_mandir}/man1/j2k_to_image.1*
