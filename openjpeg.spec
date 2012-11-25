@@ -1,3 +1,4 @@
+# NOTE: for openjpeg 2.x see openjpeg2.spec
 Summary:	An open-source JPEG 2000 codec
 Summary(pl.UTF-8):	Biblioteka kodująca i dekodująca format JPEG 2000
 Name:		openjpeg
@@ -60,7 +61,7 @@ Statyczna biblioteka OpenJPEG.
 
 %package progs
 Summary:	OpenJPEG codec programs
-Summary(pl.UTF-8):	Programy kodujące/dekodujące format OpenJPEG
+Summary(pl.UTF-8):	Programy kodujące/dekodujące dla biblioteki OpenJPEG
 Group:		Applications/Graphics
 Requires:	%{name} = %{version}-%{release}
 
@@ -68,7 +69,7 @@ Requires:	%{name} = %{version}-%{release}
 OpenJPEG codec programs.
 
 %description progs -l pl.UTF-8
-Programy kodujące/dekodujące format OpenJPEG.
+Programy kodujące/dekodujące dla biblioteki OpenJPEG.
 
 %prep
 %setup -q
