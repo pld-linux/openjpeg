@@ -2,13 +2,13 @@
 Summary:	An open-source JPEG 2000 codec
 Summary(pl.UTF-8):	Biblioteka kodująca i dekodująca format JPEG 2000
 Name:		openjpeg
-Version:	1.5.1
-Release:	4
+Version:	1.5.2
+Release:	1
 License:	BSD
 Group:		Libraries
-#Source0Download: http://code.google.com/p/openjpeg/downloads/list
-Source0:	http://openjpeg.googlecode.com/files/%{name}-%{version}.tar.gz
-# Source0-md5:	b5f74cec2688fb918331bb014061be6f
+#Source0Download: https://github.com/uclouvain/openjpeg/releases/
+Source0:	https://github.com/uclouvain/openjpeg/archive/version.%{version}/%{name}-%{version}.tar.gz
+# Source0-md5:	545f98923430369a6b046ef3632ef95c
 Patch0:		%{name}-opt.patch
 URL:		http://www.openjpeg.org/
 BuildRequires:	autoconf >= 2.65
@@ -72,7 +72,7 @@ OpenJPEG codec programs.
 Programy kodujące/dekodujące dla biblioteki OpenJPEG.
 
 %prep
-%setup -q
+%setup -q -n %{name}-version.%{version}
 %patch0 -p1
 
 %build
