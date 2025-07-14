@@ -73,7 +73,7 @@ Programy kodujące/dekodujące dla biblioteki OpenJPEG.
 
 %prep
 %setup -q -n %{name}-version.%{version}
-%patch0 -p1
+%patch -P0 -p1
 
 %build
 %{__libtoolize}
